@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffe3ef">
+<meta name="description" content="马语晗爱杨志明">
+<title>马语晗 ❤ 杨志明</title>
+<style>
+  :root {
+    --rose: #e01e63;
+    --rose-soft: #ff6ea5;
+    --ink: #6b2340;
+    --muted: #a85a79;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    margin: 0;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    padding: clamp(28px, 6vw, 64px) 20px;
+    text-align: center;
+    color: var(--ink);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC",
+      "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(52vw 52vw at 8% 4%, rgba(255, 255, 255, .95), transparent 62%),
+      radial-gradient(46vw 46vw at 92% 14%, rgba(255, 173, 207, .70), transparent 66%),
+      radial-gradient(70vw 55vw at 50% 108%, rgba(255, 110, 165, .38), transparent 70%),
+      linear-gradient(158deg, #fff7fb 0%, #ffe6f1 42%, #ffd2e4 100%);
+  }
+
+  /* ---------- floating hearts ---------- */
+
+  .assets { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+  #hearts {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .p-heart {
+    position: absolute;
+    bottom: -12%;
+    animation-name: rise;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    will-change: transform, opacity;
+  }
+
+  .p-heart.is-static {
+    bottom: auto;
+    animation: none;
+    opacity: .45;
+  }
+
+  .p-heart.pop {
+    position: fixed;
+    bottom: auto;
+    z-index: 4;
+    animation: pop .95s cubic-bezier(.16, .8, .3, 1) forwards;
+  }
+
+  @keyframes rise {
+    0%   { transform: translate3d(0, 10vh, 0) rotate(var(--rot, 0deg)); opacity: 0; }
+    12%  { opacity: var(--o, .6); }
+    85%  { opacity: var(--o, .6); }
+    100% { transform: translate3d(var(--dx, 0px), -118vh, 0) rotate(calc(var(--rot, 0deg) + 28deg)); opacity: 0; }
+  }
+
+  @keyframes pop {
+    0%   { transform: translate(-50%, -50%) scale(.3); opacity: 0; }
+    18%  { opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, -100px))) scale(var(--sc, 1)) rotate(var(--rot, 0deg)); opacity: 0; }
+  }
+
+  /* ---------- content ---------- */
+
+  .stage {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(92vw, 860px);
+  }
+
+  .stage::before {
+    content: "";
+    position: absolute;
+    inset: -14% -16%;
+    z-index: -1;
+    background: radial-gradient(closest-side, rgba(255, 255, 255, .78), transparent 72%);
+    filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .kicker {
+    margin: 0 0 clamp(20px, 4.5vw, 34px);
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 2.5vw, 16px);
+    font-size: clamp(9px, 1.6vw, 11px);
+    font-weight: 600;
+    letter-spacing: .38em;
+    text-transform: uppercase;
+    color: #b16686;
+    animation: riseIn .8s .05s both cubic-bezier(.2, .7, .2, 1);
+  }
+
+  .kicker::before,
+  .kicker::after {
+    content: "";
+    width: clamp(24px, 7vw, 54px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 60, 110, .45));
+  }
+
+  .kicker::after {
+    background: linear-gradient(90deg, rgba(200, 60, 110, .45), transparent);
+  }
+
+  .names {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(10px, 2.6vw, 22px);
+    font-family: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", serif;
+    font-weight: 600;
+    font-size: clamp(2.15rem, 9vw, 4.15rem);
+    line-height: 1.25;
+    letter-spacing: .04em;
+    animation: riseIn 1s .15s both cubic-bezier(.2, .7, .2, 1);
+  }
+
+  .name {
+    background-image: linear-gradient(105deg,
+      #c51a58 0%, #ff5a96 22%, #ff2e78 48%, #ff7fb0 72%, #c51a58 100%);
+    background-size: 230% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 8px 26px rgba(255, 70, 130, .25));
+    animation: shimmer 10s linear infinite;
+  }
+
+  .mark {
+    display: grid;
+    place-items: center;
+    width: clamp(30px, 6.4vw, 50px);
+    filter: drop-shadow(0 10px 22px rgba(255, 50, 120, .45));
+    transform-origin: 50% 55%;
+    animation: beat 1.8s ease-in-out infinite;
+  }
+
+  .mark svg { display: block; width: 100%; height: auto; }
+
+  .line {
+    margin: clamp(20px, 4.5vw, 30px) 0 0;
+    font-size: clamp(.95rem, 3.4vw, 1.1rem);
+    letter-spacing: .14em;
+    text-indent: .14em;
+    color: #8f4260;
+    animation: riseIn .9s .45s both cubic-bezier(.2, .7, .2, 1);
+  }
+
+  .tag {
+    margin: clamp(22px, 5vw, 34px) 0 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 18px 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .5);
+    border: 1px solid rgba(224, 30, 99, .18);
+    box-shadow: 0 12px 30px rgba(224, 30, 99, .12),
+      inset 0 1px 0 rgba(255, 255, 255, .7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .2em;
+    text-indent: .2em;
+    color: #c72a64;
+    animation: riseIn .9s .65s both cubic-bezier(.2, .7, .2, 1);
+  }
+
+  .tag svg { width: 13px; height: 12px; flex: none; color: #ff4f96; }
+
+  .hint {
+    position: fixed;
+    left: 50%;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    margin: 0;
+    z-index: 3;
+    font-size: 11.5px;
+    letter-spacing: .18em;
+    text-indent: .18em;
+    color: #a75e7d;
+    opacity: .75;
+    transition: opacity .6s ease;
+    pointer-events: none;
+  }
+
+  .hint.is-gone { opacity: 0; }
+
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @keyframes shimmer {
+    to { background-position: -230% 0; }
+  }
+
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    14%      { transform: scale(1.13); }
+    28%      { transform: scale(1); }
+    42%      { transform: scale(1.09); }
+    56%      { transform: scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kicker, .names, .line, .tag, .name, .mark { animation: none; }
+    .p-heart:not(.is-static) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<svg class="assets" aria-hidden="true" focusable="false">
+  <defs>
+    <path id="heart-path" d="M16 29S0 19.2 0 9.6C0 4.3 4.3 0 9.6 0 12.8 0 15 1.7 16 3.4 17 1.7 19.2 0 22.4 0 27.7 0 32 4.3 32 9.6 32 19.2 16 29 16 29Z"/>
+  </defs>
+</svg>
+
+<div id="hearts" aria-hidden="true"></div>
+
+<main class="stage">
+  <p class="kicker">Together Forever</p>
+
+  <h1 class="names">
+    <span class="name">马语晗</span>
+    <span class="mark" aria-hidden="true">
+      <svg viewBox="0 0 32 29" role="presentation">
+        <defs>
+          <linearGradient id="mark-grad" x1="0" y1="0" x2=".65" y2="1">
+            <stop offset="0" stop-color="#ff9cc6"/>
+            <stop offset=".55" stop-color="#ff4f96"/>
+            <stop offset="1" stop-color="#e01e63"/>
+          </linearGradient>
+        </defs>
+        <path d="M16 29S0 19.2 0 9.6C0 4.3 4.3 0 9.6 0 12.8 0 15 1.7 16 3.4 17 1.7 19.2 0 22.4 0 27.7 0 32 4.3 32 9.6 32 19.2 16 29 16 29Z" fill="url(#mark-grad)"/>
+      </svg>
+    </span>
+    <span class="name">杨志明</span>
+  </h1>
+
+  <p class="line">我爱你，不止今天，而是岁岁年年</p>
+
+  <p class="tag">
+    <svg viewBox="0 0 32 29" aria-hidden="true"><use href="#heart-path" fill="currentColor"/></svg>
+    <span>永远在一起</span>
+    <svg viewBox="0 0 32 29" aria-hidden="true"><use href="#heart-path" fill="currentColor"/></svg>
+  </p>
+</main>
+
+<p class="hint" id="hint">点一下，让爱心更多一点</p>
+
+<script>
+(() => {
+  "use strict";
+
+  const NS = "http://www.w3.org/2000/svg";
+  const field = document.getElementById("hearts");
+  const hint = document.getElementById("hint");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const COLORS = ["#ff9ec7", "#ff85b8", "#ff6aa8", "#ff4f96", "#ff3d7f", "#ffb3d4"];
+  const MAX_HEARTS = 34;
+
+  const rand = (min, max) => min + Math.random() * (max - min);
+  const pick = (list) => list[Math.floor(Math.random() * list.length)];
+
+  function heart(size) {
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 32 29");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("class", "p-heart");
+
+    const use = document.createElementNS(NS, "use");
+    use.setAttribute("href", "#heart-path");
+    use.setAttribute("fill", "currentColor");
+
+    svg.append(use);
+    svg.style.width = size + "px";
+    svg.style.height = (size * .92).toFixed(1) + "px";
+    svg.style.color = pick(COLORS);
+    return svg;
+  }
+
+  function spawn(initial) {
+    if (reduceMotion || document.hidden || field.childElementCount >= MAX_HEARTS) return;
+
+    const size = rand(14, 40);
+    const duration = rand(10, 19);
+    const node = heart(size);
+
+    node.style.left = rand(-1, 101) + "%";
+    node.style.setProperty("--dx", rand(-70, 70).toFixed(0) + "px");
+    node.style.setProperty("--rot", rand(-24, 24).toFixed(0) + "deg");
+    node.style.setProperty("--o", rand(.32, .8).toFixed(2));
+    node.style.animationDuration = duration.toFixed(1) + "s";
+    node.style.animationDelay = (initial ? -rand(.2, duration) : 0).toFixed(1) + "s";
+
+    node.addEventListener("animationend", () => node.remove());
+    field.append(node);
+  }
+
+  function burst(x, y) {
+    if (reduceMotion) return;
+
+    const count = 14;
+    for (let i = 0; i < count; i++) {
+      const size = rand(12, 27);
+      const angle = rand(-Math.PI * .95, -Math.PI * .05);
+      const distance = rand(60, 170);
+      const node = heart(size);
+
+      node.classList.add("pop");
+      node.style.left = x + "px";
+      node.style.top = y + "px";
+      node.style.setProperty("--tx", (Math.cos(angle) * distance).toFixed(0) + "px");
+      node.style.setProperty("--ty", (Math.sin(angle) * distance).toFixed(0) + "px");
+      node.style.setProperty("--rot", rand(-60, 60).toFixed(0) + "deg");
+      node.style.setProperty("--sc", rand(.9, 1.4).toFixed(2));
+      node.style.animationDelay = (i * .02).toFixed(2) + "s";
+
+      node.addEventListener("animationend", () => node.remove());
+      document.body.append(node);
+    }
+  }
+
+  if (reduceMotion) {
+    for (let i = 0; i < 14; i++) {
+      const size = rand(14, 34);
+      const node = heart(size);
+      node.classList.add("is-static");
+      node.style.left = rand(2, 96) + "%";
+      node.style.top = rand(4, 92) + "%";
+      field.append(node);
+    }
+  } else {
+    for (let i = 0; i < 26; i++) spawn(true);
+    setInterval(() => spawn(false), 420);
+  }
+
+  let hinted = false;
+  document.addEventListener("pointerdown", (event) => {
+    burst(event.clientX, event.clientY);
+    if (!hinted) {
+      hinted = true;
+      if (hint) hint.classList.add("is-gone");
+    }
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
